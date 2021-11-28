@@ -10,9 +10,9 @@ namespace ErpApi.Repository
     public interface IEmpresaRepository : IBaseRepository
     {
 
-        IEnumerable<Empresa> GetEmpresas();
+        Task<IEnumerable<Empresa>> GetEmpresasAsync();
 
-        Empresa GetEmpresaById(int id);
+        Task<Empresa> GetEmpresaByIdAsync(int id);
 
 
     }

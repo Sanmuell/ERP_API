@@ -23,9 +23,9 @@ namespace ErpApi.Controllers
 
         [HttpGet]
         [Route("")]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var empresas = _repository.GetEmpresas();
+            var empresas = await _repository.GetEmpresasAsync();
             return empresas.Any()
                 ? Ok(empresas)
                 : BadRequest("Empresa não encontrada");
@@ -33,9 +33,9 @@ namespace ErpApi.Controllers
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var empresa = _repository.GetEmpresaById(id);
+            var empresa = await _repository.GetEmpresaByIdAsync(id);
             return empresa != null
                 ? Ok(empresa)
                 : BadRequest("Erpresa não encontrada");

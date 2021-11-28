@@ -16,17 +16,17 @@ namespace ErpApi.Repository
             _context = context;
         }
 
-        public IEnumerable<Empresa> GetEmpresas()
+        public async Task<IEnumerable<Empresa>> GetEmpresasAsync()
         {
-            return _context.Empresas.ToList();
+            return await _context.Empresas.ToListAsync();
 
             
         }
 
-        public Empresa GetEmpresaById(int id)
+        public async Task<Empresa> GetEmpresaByIdAsync(int id)
         {
-            return _context.Empresas.Include(x => x.Fornecedores)
-                .Where(x => x.Id == id).FirstOrDefault();
+            return await _context.Empresas.Include(x => x.Fornecedores)
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
         }
     }
 }
