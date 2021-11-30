@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211128190655_v11")]
-    partial class v11
+    [Migration("20211130152631_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,13 @@ namespace ErpApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RazaoSocial")
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomeFantasia")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Uf")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -42,11 +48,23 @@ namespace ErpApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Cpf")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("EmpresaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("telefone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tipoPessoa")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

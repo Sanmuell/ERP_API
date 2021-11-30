@@ -1,4 +1,6 @@
-﻿using ErpApi.Data;
+﻿using AutoMapper;
+using ErpApi.Data;
+using ErpApi.Dtos;
 using ErpApi.Models;
 using ErpApi.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -6,16 +8,17 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
-namespace ErpApi.Controllers
+namespace Consultorio.Controllers
 {
-
-    [Route("empresas")]
+    [ApiController]
+    [Route("api/[controller]")]
     public class EmpresaController : ControllerBase
     {
         private readonly IEmpresaRepository _repository;
-       
+
         public EmpresaController(IEmpresaRepository repository)
         {
             _repository = repository;
@@ -35,37 +38,72 @@ namespace ErpApi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
+
             var empresa = await _repository.GetEmpresaByIdAsync(id);
+
             return empresa != null
                 ? Ok(empresa)
-                : BadRequest("Erpresa não encontrada");
+                : BadRequest("Empresa não encontrada");
         }
-
-
 
 
 
         [HttpPost]
-        [Route("")]
-        public async Task<ActionResult<List<Empresa>>> Post(
-   [FromBody] Empresa model,
-   [FromServices] DataContext context
-   )
+        public async Task<IActionResult> Post(Empresa empresa)
+        {
+            if (string.IsNullOrEmpty(empresa.NomeFantasia)) return BadRequest("Dados inválidos");
+
+            _repository.Add(empresa);
+
+            return await _repository.SaveChangesAsync()
+                ? Ok("Empresa adicionada")
+                : BadRequest("Erro ao adicionar a Empresa");
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, EmpresaDto empresaDto)
         {
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if (id <= 0) return BadRequest("Empresa não informada");
 
-          //  try
-           // {
-                context.Empresas.Add(model);
-                await context.SaveChangesAsync(); //persist
-                return Ok(model);
-          //  }
-          //  catch (Exception)
-          //  {
-          // //     return BadRequest(new { message = "Não foi possível criar Empresa" });
-            //}
+            var empresaAtualiza = await _repository.GetEmpresaByIdAsync(id);
+
+            if (empresaAtualiza == null)
+
+                return BadRequest("Empresa não encontrada na base de dados");
+
+            empresaAtualiza.NomeFantasia = empresaDto.NomeFantasia;
+            empresaAtualiza.Uf = empresaDto.Uf;
+            empresaAtualiza.Cnpj = empresaDto.Cnpj;
+
+            _repository.Update(empresaAtualiza);
+
+            if (!await _repository.SaveChangesAsync())
+                return NoContent();
+
+            return Ok(empresaAtualiza);
+
         }
+
+            [HttpDelete("{id}")]
+            public async Task<IActionResult> Delete(int id)
+            {
+                if (id <= 0) return BadRequest("Empresa não informada");
+
+                var empresaBanco = await _repository.GetEmpresaByIdAsync(id);
+
+                if (empresaBanco == null)
+                    return NotFound("Empresa não encontrada na base de dados");
+
+                _repository.Delete(empresaBanco);
+
+                return await _repository.SaveChangesAsync()
+                    ? Ok("Empresa deletada")
+                    : BadRequest("Erro ao deletar o Empresa");
+
+
+            }
     }
 }
+    

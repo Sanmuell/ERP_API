@@ -7,8 +7,8 @@ namespace ErpApi.Dtos
 {
     public class EmpresaDto
     {
+        public int Id { get; set; }
         public string NomeFantasia { get; set; }
-
         public string Uf { get; set; }
 
         public string Cnpj { get; set; }

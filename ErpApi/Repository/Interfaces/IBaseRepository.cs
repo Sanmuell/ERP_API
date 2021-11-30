@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpApi.Repository.Interfaces
 {
-   public  interface IBaseRepository
+    public interface IBaseRepository
     {
 
 
@@ -16,7 +16,6 @@ namespace ErpApi.Repository.Interfaces
 
         public void Delete<T>(T entity) where T : class;
 
-        bool SaveChanges();
-
+        Task<bool> SaveChangesAsync();
     }
 }

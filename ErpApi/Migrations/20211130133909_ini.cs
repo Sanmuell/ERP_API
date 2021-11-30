@@ -2,7 +2,7 @@
 
 namespace ErpApi.Migrations
 {
-    public partial class init : Migration
+    public partial class ini : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,9 @@ namespace ErpApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RazaoSocial = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    NomeFantasia = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Uf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cnpj = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,6 +28,7 @@ namespace ErpApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    tipoPessoa = table.Column<int>(type: "int", nullable: false),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

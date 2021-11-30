@@ -21,37 +21,35 @@ namespace ErpApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
            .AddNewtonsoftJson(options =>
            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
-           // services.AddDbContext<DataContext>
-              //  (options => options.UseLazyLoadingProxies());
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
-            
-                // .
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            // .
             //AddJsonOptions(x =>
-           // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-
-
-
+            // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
             //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
             services.AddDbContext<DataContext>();
            
-
-
-           // services.AddScoped<DataContext, DataContext>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ErpApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ErpApi",
+                    Version = "v1",
+                    
+                    Description = "API para cadastramento de FORNECEDORES vinculados a " +
+                    "uma EMPRESA. <br/><br/>***ATENÇÃO: utilize (1) para FISICA e (2) para JURIDICA em tipoPessoa. "
+                });
+
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

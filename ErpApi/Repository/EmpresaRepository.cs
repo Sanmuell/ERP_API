@@ -18,7 +18,7 @@ namespace ErpApi.Repository
 
         public async Task<IEnumerable<Empresa>> GetEmpresasAsync()
         {
-            return await _context.Empresas.ToListAsync();
+            return await _context.Empresas.Include(x => x.Fornecedores).ToListAsync();
 
             
         }
