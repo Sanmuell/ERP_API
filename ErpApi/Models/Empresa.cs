@@ -10,12 +10,12 @@ namespace ErpApi.Models
     {
         [Key]
         public int Id { get; set;}
+
         public string NomeFantasia { get; set; }
 
         public string Uf { get; set; }
 
         public string Cnpj { get; set; }
-
 
         public virtual IEnumerable<Fornecedor> Fornecedores { get; } 
     }

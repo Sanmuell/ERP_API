@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ErpApi.Migrations
 {
-    public partial class ini : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +29,13 @@ namespace ErpApi.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    tipoPessoa = table.Column<int>(type: "int", nullable: false),
+                    TipoPessoa = table.Column<int>(type: "int", nullable: false),
+                    Cpf = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cnpj = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataeHoraCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataNascimento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmpresaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

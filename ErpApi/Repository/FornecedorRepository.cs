@@ -18,10 +18,35 @@ namespace ErpApi.Repository
             _context = context;
         }
 
+        public async Task<Fornecedor> GetFornecedorByCnpjAsync(string cnpj)
+        {
+            return await _context.Fornecedores.Include(x => x.Empresa)
+                 .Where(x => x.Cnpj == cnpj).FirstOrDefaultAsync(); ;
+        }
+
+        public async Task<Fornecedor> GetFornecedorByCpfAsync(string cpf)
+        {
+            return await _context.Fornecedores.Include(x => x.Empresa)
+                  .Where(x => x.Cpf == cpf).FirstOrDefaultAsync(); 
+        }
+
+        public async Task<Fornecedor> GetFornecedorByDataNascimentoAsync(DateTime dataDeNascimento)
+        {
+            
+            return await _context.Fornecedores.Include(x => x.Empresa)
+                   .Where(x => x.DataNascimento == dataDeNascimento).FirstOrDefaultAsync();
+        }
+
         public async Task<Fornecedor> GetFornecedorByIdAsync(int id)
         {
             return await _context.Fornecedores.Include(x => x.Empresa)
                 .Where(x => x.Id == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<Fornecedor> GetFornecedorByNomeAsync(string nome)
+        {
+            return await _context.Fornecedores.Include(x => x.Empresa)
+                .Where(x => x.Nome == nome).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Fornecedor>> GetFornecedoresAsync()

@@ -13,6 +13,14 @@ namespace ErpApi.Repository.Interfaces
 
         Task<Fornecedor> GetFornecedorByIdAsync(int id);
 
+        Task<Fornecedor> GetFornecedorByNomeAsync(string nome);
+
+        Task<Fornecedor> GetFornecedorByCpfAsync(string cpf);
+
+        Task<Fornecedor> GetFornecedorByCnpjAsync(string cnpj);
+
+        Task<Fornecedor> GetFornecedorByDataNascimentoAsync(DateTime dataDeNascimento);
+
 
     }
 }

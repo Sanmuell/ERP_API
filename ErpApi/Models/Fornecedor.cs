@@ -1,22 +1,19 @@
-﻿using ErpApi.Validations.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ErpApi.Models
 {
 
 
-	public class Fornecedor : IValidatableObject
+    public class Fornecedor : IValidatableObject
     { 
 
-	[Key]
-	public int Id { get; set; }
+		[Key]
+		public int Id { get; set; }
 
-        public string Nome { get; set; }
+		public string Nome { get; set; }
 
         public ETipoPessoa TipoPessoa { get; set; }
 
@@ -27,7 +24,8 @@ namespace ErpApi.Models
 		[Display ]
 		public string Cnpj { get; set; }
 
-        public DateTime DataeHoraCadastro { get; set; }
+	
+		public DateTime DataeHoraCadastro { get; set; }
 
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

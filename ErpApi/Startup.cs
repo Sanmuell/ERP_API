@@ -33,7 +33,7 @@ namespace ErpApi
             // .
             //AddJsonOptions(x =>
             // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
-            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+           // services.AddDbContext<DataContext>(opt => opt.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;User ID=sa;Initial Catalog=Erp;Data Source=DESKTOP-2L8L09R"));
             services.AddDbContext<DataContext>();
            
             services.AddSwaggerGen(c =>
@@ -44,7 +44,9 @@ namespace ErpApi
                     Version = "v1",
                     
                     Description = "API para cadastramento de FORNECEDORES vinculados a " +
-                    "uma EMPRESA. <br/><br/>***ATENÇÃO: utilize (1) para FISICA e (2) para JURIDICA em tipoPessoa. "
+                    "uma EMPRESA. <br/><br/>***ATENÇÃO: utilize (1) para FISICA e (2) para JURIDICA em tipoPessoa." +
+                    "<br>" +
+                    "<br> Formato para busca por data ==>  yyyy-MM-dd "
                 });
 
             });
