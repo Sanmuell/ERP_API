@@ -1,6 +1,8 @@
 using ErpApi.Data;
 using ErpApi.Repository;
 using ErpApi.Repository.Interfaces;
+using ErpApi.Validator;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +27,10 @@ namespace ErpApi
         {
             services.AddControllers()
            .AddNewtonsoftJson(options =>
-           options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+           options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+           .AddFluentValidation(p => p.RegisterValidatorsFromAssemblyContaining<EmpresaValidator>());
+
+
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
@@ -33,16 +38,16 @@ namespace ErpApi
             // .
             //AddJsonOptions(x =>
             // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
-           // services.AddDbContext<DataContext>(opt => opt.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;User ID=sa;Initial Catalog=Erp;Data Source=DESKTOP-2L8L09R"));
+            // services.AddDbContext<DataContext>(opt => opt.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;User ID=sa;Initial Catalog=Erp;Data Source=DESKTOP-2L8L09R"));
             services.AddDbContext<DataContext>();
-           
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "ErpApi",
                     Version = "v1",
-                    
+
                     Description = "API para cadastramento de FORNECEDORES vinculados a " +
                     "uma EMPRESA. <br/><br/>***ATENÇÃO: utilize (1) para FISICA e (2) para JURIDICA em tipoPessoa." +
                     "<br>" +
@@ -58,6 +63,8 @@ namespace ErpApi
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
+                app.UseDefaultFiles();
+                app.UseStaticFiles();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ErpApi v1"));
             }
 

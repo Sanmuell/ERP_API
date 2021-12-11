@@ -23,8 +23,8 @@ namespace ErpApi.Controllers
             _repository = repository;
         }
 
+       
         [HttpGet]
-        [Route("")]
         public async Task<IActionResult> Get()
         {
             var fornecedores = await _repository.GetFornecedoresAsync();
@@ -32,9 +32,9 @@ namespace ErpApi.Controllers
                 ? Ok(fornecedores)
                 : BadRequest("Fornecedor não encontrada");
         }
-
+        
         [HttpGet("/{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+    public async Task<IActionResult> GetById(int id)
         {
             var fornecedor = await _repository.GetFornecedorByIdAsync(id);
             return fornecedor != null
@@ -42,9 +42,9 @@ namespace ErpApi.Controllers
                 : BadRequest("Fornecedor não encontrada");
         }
 
-        
 
 
+       
         [HttpGet  ("nome/{nome}")]
         public async Task<IActionResult> GetByNome(string nome)
         {
@@ -53,7 +53,7 @@ namespace ErpApi.Controllers
                 ? Ok(fornecedor)
                 : BadRequest("Fornecedor não encontrado");
         }
-
+       
         [HttpGet("/cpf/{cpf}")]
         public async Task<IActionResult> GetByCpf(string cpf)
         {
@@ -62,7 +62,7 @@ namespace ErpApi.Controllers
                 ? Ok(fornecedor)
                 : BadRequest("Fornecedor não encontrada");
         }
-
+        
         [HttpGet("/cnpj/{cnpj}")]
         public async Task<IActionResult> GetByCnpj(string cnpj)
         {
@@ -71,7 +71,7 @@ namespace ErpApi.Controllers
                 ? Ok(fornecedor)
                 : BadRequest("Fornecedor não encontrada");
         }
-
+        
         [HttpGet("/dataNascimento/{dataNascimento:datetime}")]
         public async Task<IActionResult> GetBydataNascimento(DateTime dataNascimento)
         {

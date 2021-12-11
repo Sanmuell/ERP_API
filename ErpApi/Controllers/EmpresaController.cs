@@ -51,6 +51,7 @@ namespace Consultorio.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Empresa empresa)
         {
+
             if (string.IsNullOrEmpty(empresa.NomeFantasia)) return BadRequest("Dados inválidos");
 
             _repository.Add(empresa);
