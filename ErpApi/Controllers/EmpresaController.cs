@@ -49,7 +49,7 @@ namespace Consultorio.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post(Empresa empresa)
+        public async Task<IActionResult> Post([FromForm]Empresa empresa)
         {
 
             if (string.IsNullOrEmpty(empresa.NomeFantasia)) return BadRequest("Dados inválidos");

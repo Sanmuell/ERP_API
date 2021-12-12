@@ -4,14 +4,16 @@ using ErpApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ErpApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211211140451_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,10 +55,10 @@ namespace ErpApi.Migrations
                     b.Property<string>("Cpf")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DataNascimento")
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DataeHoraCadastro")
+                    b.Property<DateTime?>("DataeHoraCadastro")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EmpresaId")

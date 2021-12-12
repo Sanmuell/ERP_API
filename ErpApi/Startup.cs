@@ -35,11 +35,8 @@ namespace ErpApi
             services.AddScoped<IBaseRepository, BaseRepository>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            // .
-            //AddJsonOptions(x =>
-            // x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve)
-            // services.AddDbContext<DataContext>(opt => opt.UseSqlServer("Integrated Security=SSPI;Persist Security Info=False;User ID=sa;Initial Catalog=Erp;Data Source=DESKTOP-2L8L09R"));
             services.AddDbContext<DataContext>();
+            services.AddCors();
 
             services.AddSwaggerGen(c =>
             {
@@ -66,6 +63,12 @@ namespace ErpApi
                 app.UseDefaultFiles();
                 app.UseStaticFiles();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ErpApi v1"));
+                app.UseCors(options =>
+                {
+                    options.WithOrigins("http://localhost:3000");
+                    options.AllowAnyMethod();
+                    options.AllowAnyHeader();
+                });
             }
 
             app.UseHttpsRedirection();

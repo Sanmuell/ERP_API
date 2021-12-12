@@ -49,19 +49,23 @@ namespace ErpApi.Models
 					yield return new ValidationResult("O campo NOME deve ser informado para pessoa jurídica");
 
 				if (String.IsNullOrWhiteSpace(Cnpj))
-					yield return new ValidationResult("O campo Cnpj fantasia deve ser informado para pessoa jurídica");
+					yield return new ValidationResult("O campo Cnpj  deve ser informado para pessoa jurídica");
 			}
 			else 
 
 			if (String.IsNullOrWhiteSpace(Rg))
 				yield return new ValidationResult("O campo RG deve ser informado para pessoa Fisica");
 
+		
+
 
 			int varAno = DataNascimento.Year;
-			int idade =   DateTime.Now.Year - varAno;
+			int idade = DateTime.Now.Year - varAno;
 
-			if (idade < 18 )
+			if (idade < 18)
 				yield return new ValidationResult("Cadastro não permitido para pessoa menor de idade");
+
+
 
 
 		}
